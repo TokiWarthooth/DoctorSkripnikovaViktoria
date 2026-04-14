@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ title ?? 'Виктория Скрипникова' }}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --ds-bg: #faf8f5;
+            --ds-surface: #ffffff;
+            --ds-text: #2a3036;
+            --ds-muted: #6b7280;
+            --ds-accent: #6b9ac4;
+            --ds-accent-dark: #4f82b3;
+            --ds-accent-soft: #e8f1fa;
+            --ds-rose: #f5e8ec;
+            --ds-beige: #efe9e2;
+            --ds-border: rgba(42, 48, 54, 0.08);
+            --ds-radius: 1rem;
+        }
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: var(--ds-bg);
+            color: var(--ds-text);
+            font-optical-sizing: auto;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.92) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--ds-border);
+        }
+        .navbar-brand {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--ds-text) !important;
+        }
+        .nav-link {
+            color: var(--ds-muted) !important;
+            font-weight: 500;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--ds-accent-dark) !important;
+        }
+        .btn-accent {
+            background: var(--ds-accent);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 999px;
+            padding: 0.55rem 1.25rem;
+        }
+        .btn-accent:hover {
+            background: var(--ds-accent-dark);
+            color: #fff;
+        }
+        .btn-outline-accent {
+            border-radius: 999px;
+            border-color: var(--ds-accent);
+            color: var(--ds-accent-dark);
+            font-weight: 600;
+        }
+        .btn-outline-accent:hover {
+            background: var(--ds-accent-soft);
+            border-color: var(--ds-accent);
+            color: var(--ds-accent-dark);
+        }
+        .card-soft {
+            border: 1px solid var(--ds-border);
+            border-radius: var(--ds-radius);
+            background: var(--ds-surface);
+            box-shadow: 0 8px 30px rgba(42, 48, 54, 0.04);
+            transition: transform 0.24s ease, box-shadow 0.24s ease;
+            transform-origin: center;
+        }
+        .card-soft:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 34px rgba(42, 48, 54, 0.09);
+        }
+        .section-muted {
+            background: linear-gradient(180deg, var(--ds-accent-soft) 0%, var(--ds-bg) 100%);
+        }
+        .text-accent { color: var(--ds-accent-dark) !important; }
+        footer {
+            background: linear-gradient(180deg, #f0e9e3 0%, var(--ds-beige) 100%);
+            border-top: 1px solid var(--ds-border);
+            color: var(--ds-muted);
+        }
+        footer a {
+            color: var(--ds-accent-dark);
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
+        /* Фото 1:1 */
+        .photo-square {
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 1 / 1;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .photo-square .hero-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: var(--ds-radius);
+            box-shadow: 0 20px 50px rgba(75, 120, 160, 0.18);
+            object-fit: cover;
+            display: block;
+        }
+        .navbar-brand-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--ds-muted);
+            letter-spacing: 0.02em;
+            display: block;
+            line-height: 1.2;
+            margin-top: 0.1rem;
+        }
+        /* Бургер → крестик */
+        .navbar-toggler.ds-toggler {
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (min-width: 992px) {
+            .navbar-toggler.ds-toggler {
+                display: none;
+            }
+        }
+        .navbar-toggler.ds-toggler:focus {
+            box-shadow: none;
+        }
+        .ds-burger {
+            width: 22px;
+            height: 16px;
+            position: relative;
+            display: block;
+        }
+        .ds-burger span {
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--ds-text);
+            border-radius: 1px;
+            transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+        }
+        .ds-burger span:nth-child(1) { top: 0; }
+        .ds-burger span:nth-child(2) { top: 7px; }
+        .ds-burger span:nth-child(3) { top: 14px; }
+        .navbar-toggler.ds-toggler[aria-expanded="true"] .ds-burger span:nth-child(1) {
+            top: 7px;
+            transform: rotate(45deg);
+        }
+        .navbar-toggler.ds-toggler[aria-expanded="true"] .ds-burger span:nth-child(2) {
+            opacity: 0;
+        }
+        .navbar-toggler.ds-toggler[aria-expanded="true"] .ds-burger span:nth-child(3) {
+            top: 7px;
+            transform: rotate(-45deg);
+        }
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: var(--ds-rose);
+            color: #6b4e58;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+        }
+        .about-actions .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+        }
+        @media (min-width: 992px) {
+            .photo-square--start {
+                margin-left: 0 !important;
+                margin-right: auto;
+            }
+        }
+    </style>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container py-2">
+            <a class="navbar-brand lh-sm" href="/">
+                <span class="d-flex align-items-center gap-2">
+                    <i class="bi bi-heart-pulse text-accent flex-shrink-0"></i>
+                    <span>
+                        Ваш врач-дерматолог, косметолог
+                        <span class="navbar-brand-sub">эстетическая косметология</span>
+                    </span>
+                </span>
+            </a>
+            <button class="navbar-toggler ds-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Открыть меню">
+                <span class="ds-burger" aria-hidden="true"><span></span><span></span><span></span></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMain">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+                    <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">О враче</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/prices">Прайс</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact"><i class="bi bi-calendar2-check me-1"></i>Запись</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+
+    <footer class="py-5 mt-5">
+        <div class="container">
+            <div class="row g-4 align-items-start">
+                <div class="col-md-5">
+                    <div class="fw-semibold text-dark mb-2">Виктория Скрипникова</div>
+                    <p class="small mb-0">Инъекционная и эстетическая косметология. Индивидуальный план процедур и бережный подход.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="fw-semibold text-dark mb-2">Контакты</div>
+                    <p class="small mb-1"><i class="bi bi-telephone me-2"></i><a href="tel:+70000000000">+7 (926) 244-96-77</a></p>
+                </div>
+                <div class="col-md-3 text-md-end small">
+                    <p class="mb-0">&copy; {{ "now"|date("Y") }} Виктория Скрипникова</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function () {
+        document.querySelectorAll('form.js-lead-form').forEach(function (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var resultEl = form.querySelector('.js-form-result');
+                if (!resultEl) return;
+                var fd = new FormData(form);
+                if (!form.querySelector('[name="privacy"]').checked) {
+                    resultEl.innerHTML = '<div class="alert alert-warning mb-0">Нужно согласие на обработку данных.</div>';
+                    return;
+                }
+                var payload = {
+                    name: (fd.get('name') || '').toString(),
+                    phone: (fd.get('phone') || '').toString(),
+                    email: (fd.get('email') || '').toString(),
+                    subject: (fd.get('subject') || '').toString(),
+                    message: (fd.get('message') || '').toString()
+                };
+                fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+                .then(function (res) {
+                    if (res.data && res.data.success) {
+                        resultEl.innerHTML = '<div class="alert alert-success mb-0"><i class="bi bi-check-circle me-2"></i>' + res.data.message + '</div>';
+                        form.reset();
+                    } else {
+                        var err = (res.data && res.data.error) ? res.data.error : 'Не удалось отправить';
+                        resultEl.innerHTML = '<div class="alert alert-danger mb-0"><i class="bi bi-exclamation-triangle me-2"></i>' + err + '</div>';
+                    }
+                })
+                .catch(function () {
+                    resultEl.innerHTML = '<div class="alert alert-danger mb-0">Ошибка сети. Попробуйте позже.</div>';
+                });
+            });
+        });
+    })();
+    </script>
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

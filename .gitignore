@@ -1,0 +1,5 @@
+/vendor/
+/storage/*.log
+/storage/leads.jsonl
+/.env
+/.idea/

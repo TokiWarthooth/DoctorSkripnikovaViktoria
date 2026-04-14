@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-8 text-center">
+            <h1 class="fw-bold mb-2">Запись и вопросы</h1>
+            <p class="text-muted mb-0">Заполните форму — я свяжусь с вами в ближайшее время и уточню детали.</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card-soft p-4 p-md-5">
+                <form class="js-lead-form" autocomplete="on">
+                    <div class="mb-3">
+                        <label class="form-label" for="c_name">Ваше имя *</label>
+                        <input class="form-control" type="text" id="c_name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="c_phone">Телефон *</label>
+                        <input class="form-control" type="tel" id="c_phone" name="phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="c_email">Email</label>
+                        <input class="form-control" type="email" id="c_email" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="c_subject">Тема обращения</label>
+                        <select class="form-select" id="c_subject" name="subject">
+                            <option value="">Выберите тему</option>
+                            <option value="consult">Консультация</option>
+                            <option value="inject">Инъекционные процедуры</option>
+                            <option value="care">Уход</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="c_message">Сообщение *</label>
+                        <textarea class="form-control" id="c_message" name="message" rows="5" required placeholder="Удобное время связи или кратко опишите запрос"></textarea>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input class="form-check-input" type="checkbox" id="c_privacy" name="privacy" required>
+                        <label class="form-check-label" for="c_privacy">Согласен(на) на обработку персональных данных *</label>
+                    </div>
+                    <button type="submit" class="btn btn-accent btn-lg w-100"><i class="bi bi-send me-2"></i>Отправить</button>
+                    <div class="js-form-result mt-3"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

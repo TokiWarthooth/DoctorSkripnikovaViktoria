@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="py-5 section-muted">
+    <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+            <div class="col-lg-6 order-lg-2">
+                <div class="photo-square ms-lg-auto">
+                    <img class="hero-photo" src="/images/viktoria-2.jpg" width="560" height="560" alt="Виктория Скрипникова" loading="eager">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <span class="tag-pill mb-3"><i class="bi bi-stars"></i> Эстетическая медицина</span>
+                <h1 class="display-5 fw-bold mb-3" style="letter-spacing: -0.03em;">Виктория Скрипникова</h1>
+                <p class="lead text-muted mb-4">Врач-ординатор дерматолог, косметолог. Подбор процедур под ваш тип кожи и задачи: натуральный результат без «перегруза».</p>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <a class="btn btn-accent btn-lg" href="/contact">Запись на приём</a>
+                    <a class="btn btn-outline-accent btn-lg" href="/about">О враче</a>
+                </div>
+                <p class="small text-muted mb-0"><i class="bi bi-shield-check text-accent me-1"></i> Конфиденциальность и безопасные протоколы</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container py-5">
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8 text-center">
+            <h2 class="fw-bold mb-3">Спокойная эстетика</h2>
+            <p class="text-muted mb-0">Акцент на здоровом виде кожи, мягких объёмах и предсказуемом эффекте. Обсуждаем ожидания и выбираем только то, что действительно уместно.</p>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card-soft p-4 h-100">
+                <div class="text-accent mb-2"><i class="bi bi-droplet" style="font-size: 1.75rem;"></i></div>
+                <h3 class="h5 fw-semibold">Индивидуально</h3>
+                <p class="text-muted small mb-0">Оценка состояния кожи и план процедур без шаблонных решений.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-soft p-4 h-100">
+                <div class="text-accent mb-2"><i class="bi bi-bandaid" style="font-size: 1.75rem;"></i></div>
+                <h3 class="h5 fw-semibold">Аккуратно</h3>
+                <p class="text-muted small mb-0">Работа в комфортном темпе, объяснение этапов и ухода после визита.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-soft p-4 h-100">
+                <div class="text-accent mb-2"><i class="bi bi-chat-heart" style="font-size: 1.75rem;"></i></div>
+                <h3 class="h5 fw-semibold">На связи</h3>
+                <p class="text-muted small mb-0">Ответы на вопросы после процедуры и поддержка по рекомендациям.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="py-5" style="background: linear-gradient(180deg, var(--ds-beige) 0%, var(--ds-bg) 100%);">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <h2 class="fw-bold mb-3">С чем помогаю</h2>
+                <ul class="list-unstyled text-muted mb-0">
+                    <li class="mb-2"><i class="bi bi-check2-circle text-accent me-2"></i> Консультации по уходу и эстетическим запросам</li>
+                    <li class="mb-2"><i class="bi bi-check2-circle text-accent me-2"></i> Инъекционные процедуры (по показаниям)</li>
+                    <li class="mb-2"><i class="bi bi-check2-circle text-accent me-2"></i> Подготовка и реабилитация после манипуляций</li>
+                    <li><i class="bi bi-check2-circle text-accent me-2"></i> Сопровождение: что ожидать и как ухаживать дома</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="card-soft p-4 p-md-5">
+                    <h3 class="h5 fw-semibold mb-2">Коротко о подходе</h3>
+                    <p class="text-muted small mb-0">Сначала — диалог и безопасность, затем — процедура. Никаких лишних обещаний: только честная оценка того, что можно улучшить и чего лучше избежать.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="request" class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">Запись на приём</h2>
+                    <p class="text-muted mb-0">Оставьте контакты — я отвечу и предложу удобное время. Поля со звёздочкой обязательны.</p>
+                </div>
+                <div class="card-soft p-4 p-md-5">
+                    <form class="js-lead-form" autocomplete="on">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="l_name">Имя *</label>
+                                <input class="form-control" type="text" id="l_name" name="name" required placeholder="Как к вам обращаться">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="l_phone">Телефон *</label>
+                                <input class="form-control" type="tel" id="l_phone" name="phone" required placeholder="+7 …">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="l_email">Email</label>
+                                <input class="form-control" type="email" id="l_email" name="email" placeholder="Необязательно">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="l_subject">Тема</label>
+                                <select class="form-select" id="l_subject" name="subject">
+                                    <option value="">Выберите вариант</option>
+                                    <option value="consult">Консультация</option>
+                                    <option value="inject">Инъекционные процедуры</option>
+                                    <option value="care">Уход и косметика</option>
+                                    <option value="other">Другое</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="l_message">Комментарий *</label>
+                                <textarea class="form-control" id="l_message" name="message" rows="4" required placeholder="Кратко опишите запрос или удобное время связи"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="l_privacy" name="privacy" required>
+                                    <label class="form-check-label small" for="l_privacy">Согласен(на) на обработку персональных данных *</label>
+                                </div>
+                            </div>
+                            <div class="col-12 d-grid">
+                                <button type="submit" class="btn btn-accent btn-lg"><i class="bi bi-send me-2"></i>Отправить</button>
+                            </div>
+                        </div>
+                        <div class="js-form-result mt-3"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

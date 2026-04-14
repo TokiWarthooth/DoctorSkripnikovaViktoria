@@ -1,0 +1,27 @@
+name: Deploy to Timeweb
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deployment webhook
+        env:
+          DEPLOY_WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL }}
+          DEPLOY_REPO_NAME: ${{ secrets.DEPLOY_REPO_NAME }}
+          DEPLOY_REF: ${{ secrets.DEPLOY_REF }}
+        run: |
+          if [ -z "$DEPLOY_WEBHOOK_URL" ] || [ -z "$DEPLOY_REPO_NAME" ]; then
+            echo "Set DEPLOY_WEBHOOK_URL and DEPLOY_REPO_NAME in GitHub Secrets"
+            exit 1
+          fi
+
+          REF_VALUE="${DEPLOY_REF:-refs/heads/main}"
+
+          curl -X POST "$DEPLOY_WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d "{\"ref\":\"${REF_VALUE}\",\"repository\":\"${DEPLOY_REPO_NAME}\"}"
