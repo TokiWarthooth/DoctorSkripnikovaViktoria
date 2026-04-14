@@ -2,10 +2,14 @@ services:
   nginx:
     image: nginx:alpine
     ports:
-      - "8081:80"
+      # HTTPS снаружи :8081 → внутри контейнера nginx слушает 443 (TLS)
+      - "8081:443"
+      # HTTP :8080 → 80 (редирект на https://…:8081)
+      - "8080:80"
     volumes:
       - .:/var/www/html
       - ./nginx.prod.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
     depends_on:
       - php
     restart: unless-stopped

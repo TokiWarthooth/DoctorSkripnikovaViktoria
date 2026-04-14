@@ -3,3 +3,7 @@
 /storage/leads.jsonl
 /.env
 /.idea/
+
+# TLS-ключи не коммитить
+/ssl/*.pem
+/ssl/*.key
