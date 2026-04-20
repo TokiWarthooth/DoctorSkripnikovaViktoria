@@ -95,6 +95,34 @@
             text-decoration: none;
         }
         footer a:hover { text-decoration: underline; }
+        .footer-contact-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            color: var(--ds-text);
+            font-weight: 500;
+        }
+        .footer-contact-item:hover {
+            color: var(--ds-accent-dark);
+        }
+        .footer-contact-icon {
+            width: 2.15rem;
+            height: 2.15rem;
+            border-radius: 0.55rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(107, 154, 196, 0.2);
+            color: var(--ds-accent-dark);
+            font-size: 1.05rem;
+            flex-shrink: 0;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+        .footer-contact-item:hover .footer-contact-icon {
+            background: var(--ds-accent);
+            color: #fff;
+            transform: scale(1.05);
+        }
         /* Фото 1:1 */
         .photo-square {
             width: 100%;
@@ -231,8 +259,33 @@
                     <p class="small mb-0">Инъекционная и эстетическая косметология. Индивидуальный план процедур и бережный подход.</p>
                 </div>
                 <div class="col-md-4">
-                    <div class="fw-semibold text-dark mb-2">Контакты</div>
-                    <p class="small mb-1"><i class="bi bi-telephone me-2"></i><a href="tel:+70000000000">+7 (926) 244-96-77</a></p>
+                    <div class="fw-semibold text-dark mb-3">Контакты</div>
+                    <ul class="list-unstyled small mb-0">
+                        <li class="mb-2">
+                            <a href="tel:+79262449677" class="footer-contact-item">
+                                <span class="footer-contact-icon" aria-hidden="true"><i class="bi bi-telephone-fill"></i></span>
+                                <span>+7 (926) 244-96-77</span>
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://t.me/doctor_skripnikova" class="footer-contact-item" target="_blank" rel="noopener noreferrer">
+                                <span class="footer-contact-icon" aria-hidden="true"><i class="bi bi-telegram"></i></span>
+                                <span>@doctor_skripnikova</span>
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://www.instagram.com/doctor_skripnikova/" class="footer-contact-item" target="_blank" rel="noopener noreferrer">
+                                <span class="footer-contact-icon" aria-hidden="true"><i class="bi bi-instagram"></i></span>
+                                <span>@doctor_skripnikova</span>
+                            </a>
+                        </li>
+                        <li class="mb-0">
+                            <a href="https://www.instagram.com/victoria_dermatology/" class="footer-contact-item" target="_blank" rel="noopener noreferrer">
+                                <span class="footer-contact-icon" aria-hidden="true"><i class="bi bi-instagram"></i></span>
+                                <span>@victoria_dermatology</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-md-3 text-md-end small">
                     <p class="mb-0">&copy; {{ "now"|date("Y") }} Виктория Скрипникова</p>

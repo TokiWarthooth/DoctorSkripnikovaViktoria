@@ -1,5 +1,89 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+<style>
+    .diploma-section-title {
+        letter-spacing: -0.02em;
+    }
+    .diploma-carousel-wrap {
+        border-radius: var(--ds-radius);
+        overflow: hidden;
+        border: 1px solid var(--ds-border);
+        box-shadow: 0 14px 42px rgba(42, 48, 54, 0.08);
+        background: var(--ds-surface);
+    }
+    .diploma-slide-frame {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: min(78vh, 600px);
+        padding: 1.25rem 0.75rem;
+        background: linear-gradient(180deg, #faf8f5 0%, var(--ds-beige) 100%);
+    }
+    .diploma-carousel .carousel-item .diploma-img {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        max-height: min(70vh, 520px);
+        object-fit: contain;
+    }
+    /* Портретные сканы: поворот на 90° по часовой → «лежат» горизонтально (diplom2 без поворота) */
+    .diploma-carousel .carousel-item .diploma-img--rotate-cw {
+        transform: rotate(90deg);
+        transform-origin: center center;
+        max-width: min(72vh, 560px);
+        max-height: min(88vw, 820px);
+    }
+    /* diplom4: файл перевёрнут на 180° — сначала переворот, затем 90° по часовой (порядок в CSS: справа налево) */
+    .diploma-carousel .carousel-item .diploma-img--rotate-cw-flip180 {
+        transform: rotate(90deg) rotate(180deg);
+        transform-origin: center center;
+        max-width: min(72vh, 560px);
+        max-height: min(88vw, 820px);
+    }
+    .diploma-carousel .carousel-control-prev,
+    .diploma-carousel .carousel-control-next {
+        width: 3rem;
+        opacity: 1;
+    }
+    .diploma-carousel .diploma-car-btn {
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid var(--ds-border);
+        color: var(--ds-accent-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 18px rgba(42, 48, 54, 0.1);
+        transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .diploma-carousel .diploma-car-btn:hover {
+        background: var(--ds-accent);
+        color: #fff;
+        border-color: var(--ds-accent);
+        transform: scale(1.06);
+    }
+    .diploma-carousel .carousel-indicators {
+        margin-bottom: 0.75rem;
+    }
+    .diploma-carousel .carousel-indicators [data-bs-target] {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        border: none;
+        margin: 0 0.2rem;
+        background-color: var(--ds-muted);
+        opacity: 0.35;
+    }
+    .diploma-carousel .carousel-indicators .active {
+        opacity: 1;
+        background-color: var(--ds-accent);
+    }
+</style>
+{% endblock %}
+
 {% block body %}
 <div class="container py-5">
     <div class="row g-5 align-items-center">
@@ -11,8 +95,7 @@
         <div class="col-lg-7">
             <span class="tag-pill mb-3"><i class="bi bi-person-hearts"></i> О враче</span>
             <h1 class="fw-bold mb-3">Виктория Скрипникова</h1>
-            <p class="text-muted lead">Врач-дерматолог, косметолог. На приёме важны и медицинская обоснованность, и эстетика: что делаем, зачем и как это будет смотреться именно на вас — без «универсальных» решений.</p>
-            <p class="text-muted">Подробно объясняю варианты лечения и эстетических процедур, ожидаемые сроки и ощущения, рекомендации по уходу после визита. Если вы только рассматриваете инъекционные методики, начинаем с консультации: обсуждаем показания, противопоказания и составляем план без спешки.</p>
+            <p class="text-muted lead">Врач-ординатор дерматолог, косметолог. На приёме внимательно разбираю ваш запрос и предлагаю несколько понятных вариантов решения — с объяснением плюсов, нюансов и ожидаемого результата.</p>
 
             <h2 class="h5 fw-semibold mt-4 mb-3">Образование</h2>
             <ul class="list-unstyled text-muted mb-4">
@@ -34,4 +117,58 @@
         </div>
     </div>
 </div>
+
+<section class="py-5 section-muted">
+    <div class="container">
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8 text-center">
+                <span class="tag-pill mb-3"><i class="bi bi-award"></i> Документы</span>
+                <h2 class="h3 fw-bold diploma-section-title mb-2">Дипломы и сертификаты</h2>
+                <p class="text-muted small mb-0">Листайте, чтобы посмотреть сканы документов об образовании.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+                <div id="diplomasCarousel" class="carousel slide diploma-carousel diploma-carousel-wrap" data-bs-ride="carousel" data-bs-interval="5500" data-bs-touch="true" aria-label="Галерея дипломов">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#diplomasCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Слайд 1"></button>
+                        <button type="button" data-bs-target="#diplomasCarousel" data-bs-slide-to="1" aria-label="Слайд 2"></button>
+                        <button type="button" data-bs-target="#diplomasCarousel" data-bs-slide-to="2" aria-label="Слайд 3"></button>
+                        <button type="button" data-bs-target="#diplomasCarousel" data-bs-slide-to="3" aria-label="Слайд 4"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="diploma-slide-frame">
+                                <img src="/images/diplomas/diplom1.jpg" class="diploma-img diploma-img--rotate-cw" alt="Диплом или сертификат, документ 1" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="diploma-slide-frame">
+                                <img src="/images/diplomas/diplom2.jpg" class="diploma-img" alt="Диплом или сертификат, документ 2" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="diploma-slide-frame">
+                                <img src="/images/diplomas/diplom3.jpg" class="diploma-img diploma-img--rotate-cw" alt="Диплом или сертификат, документ 3" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="diploma-slide-frame">
+                                <img src="/images/diplomas/diplom4.jpg" class="diploma-img diploma-img--rotate-cw-flip180" alt="Диплом или сертификат, документ 4" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#diplomasCarousel" data-bs-slide="prev">
+                        <span class="diploma-car-btn" aria-hidden="true"><i class="bi bi-chevron-left fs-5"></i></span>
+                        <span class="visually-hidden">Предыдущий</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#diplomasCarousel" data-bs-slide="next">
+                        <span class="diploma-car-btn" aria-hidden="true"><i class="bi bi-chevron-right fs-5"></i></span>
+                        <span class="visually-hidden">Следующий</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
