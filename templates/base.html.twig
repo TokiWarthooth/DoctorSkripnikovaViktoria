@@ -312,7 +312,8 @@
                     phone: (fd.get('phone') || '').toString(),
                     email: (fd.get('email') || '').toString(),
                     subject: (fd.get('subject') || '').toString(),
-                    message: (fd.get('message') || '').toString()
+                    message: (fd.get('message') || '').toString(),
+                    form_source: (fd.get('form_source') || '').toString()
                 };
                 fetch('/api/contact', {
                     method: 'POST',

@@ -6,6 +6,7 @@ namespace App;
 
 use App\Controller\ApiController;
 use App\Controller\PageController;
+use App\Service\TelegramNotifier;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ final class Application
     public function __construct(
         private readonly string $rootDir,
         private readonly Environment $twig,
+        private readonly TelegramNotifier $telegram,
     ) {
     }
 
@@ -29,13 +31,13 @@ final class Application
             'strict_variables' => true,
         ]);
 
-        return new self($rootDir, $twig);
+        return new self($rootDir, $twig, TelegramNotifier::fromEnvironment());
     }
 
     public function handle(Request $request): Response
     {
         $page = new PageController($this->twig);
-        $api = new ApiController($this->rootDir);
+        $api = new ApiController($this->rootDir, $this->telegram);
 
         $dispatcher = \FastRoute\simpleDispatcher(function (RouteCollector $r) use ($page, $api): void {
             $r->addRoute('GET', '/', [$page, 'index']);

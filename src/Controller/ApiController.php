@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Service\TelegramNotifier;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +13,7 @@ final class ApiController
 {
     public function __construct(
         private readonly string $rootDir,
+        private readonly TelegramNotifier $telegram,
     ) {
     }
 
@@ -42,6 +44,10 @@ final class ApiController
         $email = trim((string) ($data['email'] ?? ''));
         $subject = trim((string) ($data['subject'] ?? ''));
         $message = trim((string) ($data['message'] ?? ''));
+        $formSource = trim((string) ($data['form_source'] ?? ''));
+        if (!\in_array($formSource, ['index', 'contact'], true)) {
+            $formSource = 'unknown';
+        }
 
         if ($name === '' || $phone === '' || $message === '') {
             return new JsonResponse([
@@ -52,6 +58,7 @@ final class ApiController
 
         $line = json_encode([
             'received_at' => date('c'),
+            'form_source' => $formSource,
             'name' => $name,
             'phone' => $phone,
             'email' => $email,
@@ -65,6 +72,20 @@ final class ApiController
         }
 
         file_put_contents($storageDir . '/leads.jsonl', $line, FILE_APPEND | LOCK_EX);
+
+        if ($this->telegram->isConfigured()) {
+            $ok = $this->telegram->notifyNewLead(
+                $name,
+                $phone,
+                $email,
+                $subject,
+                $message,
+                $formSource,
+            );
+            if (!$ok) {
+                error_log('Contact lead saved but Telegram notification failed');
+            }
+        }
 
         return new JsonResponse([
             'success' => true,
