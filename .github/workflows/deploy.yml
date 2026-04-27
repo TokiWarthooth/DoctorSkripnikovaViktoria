@@ -1,11 +1,9 @@
 # Секреты: Settings → Secrets and variables → Actions
-#   DEPLOY_WEBHOOK_URL — URL второго вебхука на сервере, тот же IP что и Natalis, порт 9001:
-#     http://194.87.200.201:9001/deploy  (замените IP/домен при необходимости)
-#   DEPLOY_REPO_NAME  — не обязателен, по умолчанию DoctorSkripnikovaViktoria (только для JSON-поля; вебхук его не маршрутизирует)
-#   DEPLOY_REF        — не обязателен, по умолчанию refs/heads/main
-#
-# На сервере: клон в /var/www/DoctorSkripnikovaViktoria, chmod +x deploy.sh webhook_server.py,
-# открыть порт 9001, systemd: scripts/webhook-deploy-viktoria.service (отдельно от вебхука Natalis на 9000).
+#   DEPLOY_WEBHOOK_URL — URL вебхука, например http://194.87.200.201:9001/deploy
+#   Вариант A: Repository secrets — секрет в разделе «Repository secrets», environment в job не нужен.
+#   Вариант B: Environment secrets — создано окружение в Settings → Environments, секрет привязан к нему;
+#              ниже в job должно быть environment: <точное имя окружения>.
+#   DEPLOY_REPO_NAME / DEPLOY_REF — не обязательны (см. шаг run).
 
 name: Deploy to TimeWeb
 
@@ -17,6 +15,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Environment secrets: имя как в Settings → Environments. Если DEPLOY_WEBHOOK_URL только в Repository secrets — удалите две строки ниже (environment + комментарий).
+    environment: DoctorSkripnikova
     steps:
       - name: Trigger deployment webhook
         env:
