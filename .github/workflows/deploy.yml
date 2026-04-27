@@ -1,4 +1,13 @@
-name: Deploy to Timeweb
+# Секреты: Settings → Secrets and variables → Actions
+#   DEPLOY_WEBHOOK_URL — URL второго вебхука на сервере, тот же IP что и Natalis, порт 9001:
+#     http://194.87.200.201:9001/deploy  (замените IP/домен при необходимости)
+#   DEPLOY_REPO_NAME  — не обязателен, по умолчанию DoctorSkripnikovaViktoria (только для JSON-поля; вебхук его не маршрутизирует)
+#   DEPLOY_REF        — не обязателен, по умолчанию refs/heads/main
+#
+# На сервере: клон в /var/www/DoctorSkripnikovaViktoria, chmod +x deploy.sh webhook_server.py,
+# открыть порт 9001, systemd: scripts/webhook-deploy-viktoria.service (отдельно от вебхука Natalis на 9000).
+
+name: Deploy to TimeWeb
 
 on:
   push:
@@ -15,13 +24,14 @@ jobs:
           DEPLOY_REPO_NAME: ${{ secrets.DEPLOY_REPO_NAME }}
           DEPLOY_REF: ${{ secrets.DEPLOY_REF }}
         run: |
-          if [ -z "$DEPLOY_WEBHOOK_URL" ] || [ -z "$DEPLOY_REPO_NAME" ]; then
-            echo "Set DEPLOY_WEBHOOK_URL and DEPLOY_REPO_NAME in GitHub Secrets"
+          if [ -z "$DEPLOY_WEBHOOK_URL" ]; then
+            echo "Set DEPLOY_WEBHOOK_URL in GitHub Secrets (e.g. http://YOUR_IP:9001/deploy)"
             exit 1
           fi
 
           REF_VALUE="${DEPLOY_REF:-refs/heads/main}"
+          REPO_NAME="${DEPLOY_REPO_NAME:-DoctorSkripnikovaViktoria}"
 
           curl -X POST "$DEPLOY_WEBHOOK_URL" \
             -H "Content-Type: application/json" \
-            -d "{\"ref\":\"${REF_VALUE}\",\"repository\":\"${DEPLOY_REPO_NAME}\"}"
+            -d "{\"ref\":\"${REF_VALUE}\",\"repository\":\"${REPO_NAME}\"}"
