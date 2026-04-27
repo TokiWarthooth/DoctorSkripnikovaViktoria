@@ -3,8 +3,8 @@ services:
     image: nginx:alpine
     ports:
       - "8081:80"
-      # HTTPS внутри контейнера (серты из ./ssl — см. scripts/ssl-selfsigned.sh или LE в ssl/)
-      - "8443:443"
+      # HTTPS: хост 9443 → 443 в контейнере (8443 часто занят — смотри ss -tlnp | grep 8443)
+      - "9443:443"
     volumes:
       - .:/var/www/html
       - ./nginx.prod.conf:/etc/nginx/conf.d/default.conf:ro
