@@ -1,0 +1,14 @@
+[Unit]
+Description=Webhook deploy — Doctor Skripnikova Victoria (port 9001)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/DoctorSkripnikovaViktoria
+ExecStart=/usr/bin/python3 /var/www/DoctorSkripnikovaViktoria/webhook_server.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
