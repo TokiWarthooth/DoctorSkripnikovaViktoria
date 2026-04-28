@@ -85,16 +85,16 @@ final class TelegramNotifier
         $emailLine = $email !== '' ? $email : '—';
 
         return implode("\n", [
-            'Новая заявка с сайта',
+            '✨ Новая заявка с сайта',
             '',
-            'Источник: ' . $sourceLabel,
-            'Тема: ' . $subjectLine,
+            '📍 Источник: ' . $sourceLabel,
+            '📋 Тема: ' . $subjectLine,
             '',
-            'Имя: ' . $name,
-            'Телефон: ' . $phone,
-            'Email: ' . $emailLine,
+            '👤 Имя: ' . $name,
+            '📞 Телефон: ' . $phone,
+            '✉️ Email: ' . $emailLine,
             '',
-            'Сообщение:',
+            '💬 Сообщение:',
             $message,
         ]);
     }
