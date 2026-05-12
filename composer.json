@@ -1,6 +1,6 @@
 {
     "name": "doctor-skripnikova/viktoria-site",
-    "description": "Лёгкий лендинг врача с PHP API",
+    "description": "Сайт доктора Скрипниковой Виктории PHP API",
     "type": "project",
     "license": "MIT",
     "require": {

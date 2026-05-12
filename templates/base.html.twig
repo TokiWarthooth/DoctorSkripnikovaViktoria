@@ -12,6 +12,7 @@
             --ds-bg: #faf8f5;
             --ds-surface: #ffffff;
             --ds-text: #2a3036;
+            --ds-text-strong: #1e2329;
             --ds-muted: #6b7280;
             --ds-accent: #6b9ac4;
             --ds-accent-dark: #4f82b3;
@@ -88,11 +89,29 @@
             border-top: 1px solid var(--ds-border);
             color: var(--ds-muted);
         }
+        footer .ds-footer-legal {
+            border-top: 1px solid var(--ds-border);
+        }
         footer a {
             color: var(--ds-accent-dark);
             text-decoration: none;
         }
         footer a:hover { text-decoration: underline; }
+        a.ds-doc-link {
+            color: var(--ds-text-strong);
+            text-decoration: underline;
+            text-underline-offset: 0.14em;
+            text-decoration-thickness: 1px;
+        }
+        a.ds-doc-link:hover {
+            color: #14181c;
+        }
+        footer a.ds-doc-link {
+            color: var(--ds-text-strong);
+        }
+        footer a.ds-doc-link:hover {
+            color: #14181c;
+        }
         .footer-contact-item {
             display: inline-flex;
             align-items: center;
@@ -287,6 +306,18 @@
                 </div>
                 <div class="col-md-3 text-md-end small">
                     <p class="mb-0">&copy; {{ "now"|date("Y") }} Виктория Скрипникова</p>
+                </div>
+            </div>
+            <div class="row mt-4 pt-4 ds-footer-legal">
+                <div class="col-12 small">
+                    <span class="fw-semibold text-dark">Документы:</span>
+                    <span class="ms-1">
+                        <a class="ds-doc-link" href="/docs/soglasie-obrabotka-pd.pdf" target="_blank" rel="noopener noreferrer">Согласие на обработку персональных данных</a>
+                    </span>
+                    <span class="text-muted px-1" aria-hidden="true">·</span>
+                    <a class="ds-doc-link" href="/docs/politika-konfidencialnosti.pdf" target="_blank" rel="noopener noreferrer">Политика конфиденциальности</a>
+                    <span class="text-muted px-1" aria-hidden="true">·</span>
+                    <a class="ds-doc-link" href="/docs/polzovatelskoe-soglashenie.pdf" target="_blank" rel="noopener noreferrer">Пользовательское соглашение</a>
                 </div>
             </div>
         </div>

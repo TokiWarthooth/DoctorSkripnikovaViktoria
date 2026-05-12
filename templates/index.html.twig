@@ -123,10 +123,7 @@
                                 <textarea class="form-control" id="l_message" name="message" rows="4" required placeholder="Кратко опишите запрос или удобное время связи"></textarea>
                             </div>
                             <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="l_privacy" name="privacy" required>
-                                    <label class="form-check-label small" for="l_privacy">Согласен(на) на обработку персональных данных *</label>
-                                </div>
+                                {% include '_consent_privacy.html.twig' with { privacy_id: 'l_privacy' } %}
                             </div>
                             <div class="col-12 d-grid">
                                 <button type="submit" class="btn btn-accent btn-lg"><i class="bi bi-send me-2"></i>Отправить</button>
